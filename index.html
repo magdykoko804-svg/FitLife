@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="موقع شامل للصحة والرياضة وحساب السعرات وكتلة الجسم">
+    <title>FitLife - صحتك أولويتنا</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo">Fit<span class="highlight">Life</span></a>
+            <nav class="navbar">
+                <ul class="nav-links">
+                    <li><a href="#hero">الرئيسية</a></li>
+                    <li><a href="#nutrition">التغذية</a></li>
+                    <li><a href="#workouts">الرياضة</a></li>
+                    <li><a href="#measurements">القياسات</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>اكتشف النسخة الأفضل من <span class="highlight">نفسك</span></h1>
+                <p>دليلك الشامل للتغذية السليمة، التمارين الرياضية الفعالة، ومتابعة قياسات جسمك بدقة.</p>
+                <div class="hero-buttons">
+                    <a href="#nutrition" class="btn btn-primary">احسب سعراتك</a>
+                    <a href="#workouts" class="btn btn-secondary">ابدأ التمارين</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1000&auto=format&fit=crop"
+                    alt="Health and Fitness" id="hero-img">
+            </div>
+        </div>
+        <div class="hero-bg-accent"></div>
+    </section>
+
+    <!-- Nutrition Section (Calories) -->
+    <section id="nutrition" class="section nutrition">
+        <div class="container">
+            <div class="section-header">
+                <h2>التغذية وحساب السعرات</h2>
+                <p>توازنك الغذائي هو مفتاح صحتك. احسب احتياجك اليومي بدقة.</p>
+            </div>
+
+            <div class="calculator-card glass">
+                <h3><i class="fa-solid fa-fire"></i> حاسبة السعرات الحرارية</h3>
+                <form id="calorie-form">
+                    <div class="form-group">
+                        <label>الجنس</label>
+                        <div class="radio-group">
+                            <label class="radio-label"><input type="radio" name="gender" value="male" checked>
+                                ذكر</label>
+                            <label class="radio-label"><input type="radio" name="gender" value="female"> أنثى</label>
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <div class="form-group">
+                            <label for="age">العمر (سنة)</label>
+                            <input type="number" id="age" placeholder="25" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="weight">الوزن (كجم)</label>
+                            <input type="number" id="weight" placeholder="70" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="height">الطول (سم)</label>
+                            <input type="number" id="height" placeholder="170" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="activity">مستوى النشاط</label>
+                        <select id="activity">
+                            <option value="1.2">خامل (لا تمارين)</option>
+                            <option value="1.375">نشاط خفيف (1-3 أيام/أسبوع)</option>
+                            <option value="1.55">نشاط متوسط (3-5 أيام/أسبوع)</option>
+                            <option value="1.725">نشاط عالي (6-7 أيام/أسبوع)</option>
+                            <option value="1.9">نشاط فائق (تمارين شاقة يومياً)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">احسب احتياجي</button>
+                </form>
+                <div id="calorie-result" class="result-box hidden">
+                    <h4>احتياجك اليومي التقريبي:</h4>
+                    <div class="result-value"><span id="tdee-value">0</span> سعرة حرارية</div>
+                </div>
+            </div>
+
+            <div class="tips-grid"
+                style="margin-top: 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                <div class="tip-card glass" style="padding: 1.5rem;">
+                    <h3><i class="fa-solid fa-apple-whole" style="color: var(--primary);"></i> توازن الماكروز</h3>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--text-muted);">حافظ على توازن البروتين
+                        والكربوهيدرات والدهون الصحية في وجباتك.</p>
+                </div>
+                <div class="tip-card glass" style="padding: 1.5rem;">
+                    <h3><i class="fa-solid fa-glass-water" style="color: #3498db;"></i> شرب الماء</h3>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--text-muted);">اشرب 3-4 لتر يومياً
+                        لتعزيز الأيض وصحة الجسم العامة.</p>
+                </div>
+                <div class="tip-card glass" style="padding: 1.5rem;">
+                    <h3><i class="fa-solid fa-carrot" style="color: #e67e22;"></i> الألياف</h3>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--text-muted);">ركز على الخضروات
+                        والفواكه لتحسين الهضم والشبع لفترات أطول.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workouts Section -->
+    <section id="workouts" class="section workouts">
+        <div class="container">
+            <div class="section-header">
+                <h2>الرياضة والتمارين</h2>
+                <p>خطط تدريبية تناسب مستوى رياقتك وأهدافك.</p>
+            </div>
+
+            <div class="workout-grid">
+                <div class="workout-card glass">
+                    <div class="icon-box"><i class="fa-solid fa-person-running"></i></div>
+                    <h3>كارديو وحرق دهون</h3>
+                    <p>تمارين لرفع نبضات القلب وحرق السعرات الحرارية بفعالية.</p>
+                </div>
+                <div class="workout-card glass">
+                    <div class="icon-box"><i class="fa-solid fa-dumbbell"></i></div>
+                    <h3>بناء العضلات</h3>
+                    <p>تمارين مقاومة لزيادة الكتلة العضلية والقوة البدنية.</p>
+                </div>
+                <div class="workout-card glass">
+                    <div class="icon-box"><i class="fa-solid fa-spa"></i></div>
+                    <h3>يوجا ومرونة</h3>
+                    <p>تحسين مرونة الجسم والتوازن النفسي والجسدي.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Measurements Section (BMI) -->
+    <section id="measurements" class="section measurements">
+        <div class="container">
+            <div class="section-header">
+                <h2>قياسات الجسم (BMI)</h2>
+                <p>تعرف على مؤشر كتلة الجسم لتقييم وزنك المثالي.</p>
+            </div>
+
+            <div class="calculator-card glass bmi-card">
+                <h3><i class="fa-solid fa-weight-scale"></i> حاسبة كتلة الجسم</h3>
+                <form id="bmi-form">
+                    <div class="form-group-row">
+                        <div class="form-group">
+                            <label for="bmi-weight">الوزن (كجم)</label>
+                            <input type="number" id="bmi-weight" placeholder="70" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bmi-height">الطول (سم)</label>
+                            <input type="number" id="bmi-height" placeholder="170" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">احسب الكتلة</button>
+                </form>
+                <div id="bmi-result" class="result-box hidden">
+                    <div class="bmi-score">مؤشر الكتلة: <span id="bmi-value">0</span></div>
+                    <div class="bmi-category">التصنيف: <span id="bmi-status">-</span></div>
+                    <div class="bmi-bar">
+                        <div id="bmi-pointer" class="pointer"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="#">Fit<span class="highlight">Life</span></a>
+                    <p>منصتك العربية الأولى لأسلوب حياة صحي ومتكامل.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="#hero">الرئيسية</a></li>
+                        <li><a href="#nutrition">الحاسبة</a></li>
+                        <li><a href="#workouts">التمارين</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FitLife. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
