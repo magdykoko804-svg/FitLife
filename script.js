@@ -20,7 +20,7 @@ if (hamburger && navLinks) {
     });
 }
 
-// 2. Calorie Calculator
+// 2. Calorie Calculator (WITH MACROS)
 const calorieForm = getEl('calorie-form');
 if (calorieForm) {
     calorieForm.addEventListener('submit', (e) => {
@@ -41,9 +41,47 @@ if (calorieForm) {
                 : 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
 
             const tdee = Math.round(bmr * activity);
+
+            // Macros Calculation (Standard 30/35/35 Split for General Fitness)
+            const proteinGrams = Math.round((tdee * 0.30) / 4);
+            const carbGrams = Math.round((tdee * 0.35) / 4);
+            const fatGrams = Math.round((tdee * 0.35) / 9);
+
             const tdeeValue = getEl('tdee-value');
             const calorieResult = getEl('calorie-result');
+
             if (tdeeValue) tdeeValue.textContent = tdee;
+
+            // Inject Macros HTML inside calorie result
+            const macrosHtml = `
+                <div class="macros-container">
+                    <div class="macro-item macro-protein">
+                        <div class="macro-label"><i class="fa-solid fa-drumstick-bite" style="color: #3498db;"></i> بروتين (30%)</div>
+                        <div class="macro-value">${proteinGrams}g</div>
+                    </div>
+                    
+                    <div class="macro-item macro-carbs">
+                        <div class="macro-label"><i class="fa-solid fa-bread-slice" style="color: #2ecc71;"></i> كارب (35%)</div>
+                        <div class="macro-value">${carbGrams}g</div>
+                    </div>
+
+                    <div class="macro-item macro-fats">
+                        <div class="macro-label"><i class="fa-solid fa-oil-can" style="color: #e67e22;"></i> دهون (35%)</div>
+                        <div class="macro-value">${fatGrams}g</div>
+                    </div>
+                </div>
+            `;
+
+            // Append macros if not already present
+            let macrosDiv = calorieResult.querySelector('.macros-container');
+            if (!macrosDiv) {
+                const existingContent = calorieResult.innerHTML;
+                calorieResult.innerHTML = existingContent + macrosHtml;
+            } else {
+                // Update existent
+                macrosDiv.innerHTML = macrosHtml; // Replace full block to update numbers easily
+            }
+
             if (calorieResult) {
                 calorieResult.classList.remove('hidden');
                 calorieResult.style.display = 'block';

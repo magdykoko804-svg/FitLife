@@ -313,6 +313,67 @@ ul {
     margin-top: 0.5rem;
 }
 
+/* Macros Result Styles */
+.macros-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.macro-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.8rem;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--glass-border);
+}
+
+.macro-label {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.macro-value {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+.macro-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+.macro-progress {
+    height: 100%;
+    background: var(--secondary);
+    border-radius: 4px;
+    width: 0;
+    /* Animated via JS */
+    transition: width 1s ease-out;
+}
+
+.macro-protein .macro-progress {
+    background: #3498db;
+}
+
+.macro-carbs .macro-progress {
+    background: #2ecc71;
+}
+
+.macro-fats .macro-progress {
+    background: #e67e22;
+}
+
 /* Workouts */
 .workout-grid {
     display: grid;
