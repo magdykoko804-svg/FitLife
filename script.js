@@ -6,13 +6,16 @@ const STORAGE_KEY = 'fitlife_progress';
 
 // Default Data
 const defaultData = {
-    goal: 'muscle', // muscle, weight_loss, tone
     streak: {}, // Format: "YYYY-MM-DD": true
-    totalCalories: 0
+    totalCalories: 0,
+    totalWorkouts: 0,
+    totalMinutes: 0
 };
 
 // Load Data
 let userData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || defaultData;
+if (userData.totalWorkouts === undefined) userData.totalWorkouts = 0;
+if (userData.totalMinutes === undefined) userData.totalMinutes = 0;
 
 function saveData() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
@@ -138,82 +141,92 @@ if (bmiForm) {
 }
 
 // ==========================================
-// 4. WORKOUT TRACKER & EXPANDED EXERCISES
+// 4. WORKOUT TRACKER (Leap Fitness System)
 // ==========================================
 
 const workoutData = {
-    'cardio': {
-        title: 'تمارين الكارديو (حرق دهون مكثف)',
+    'abs-beginner': {
+        title: 'عضلات البطن - مبتدئ',
+        duration: 10,
         exercises: [
-            // Basic
-            { name: 'الجري في المكان (High Knees)', duration: '30 ثانية', calories: 15, desc: 'ارفع ركبتيك للأعلى بسرعة قصوى.' },
-            { name: 'قفز الحبل (Jump Rope)', duration: '1 دقيقة', calories: 20, desc: 'حافظ على إيقاع ثابت وقفزات قصيرة.' },
-            { name: 'تمرين بيربي (Burpees)', duration: '15 تكرار', calories: 25, desc: 'تمرين كامل للجسم: انبطاح، ضغط، ثم قفز.' },
-            // Advanced
-            { name: 'تسلق الجبل (Mountain Climbers)', duration: '45 ثانية', calories: 18, desc: 'شد عضلات البطن وحرك الأرجل بسرعة.' },
-            { name: 'قفز الرافعات (Jumping Jacks)', duration: '60 ثانية', calories: 12, desc: 'تمرين إحماء وحرق كلاسيكي.' },
-            { name: 'القفز العريض (Broad Jumps)', duration: '12 تكرار', calories: 15, desc: 'اقفز لأبعد مسافة ممكنة للأمام ثم عد للخلف.' },
-            { name: 'قفز القرفصاء (Jump Squats)', duration: '15 تكرار', calories: 18, desc: 'انزل في وضعية القرفصاء ثم اقفز بقوة للأعلى.' },
-            { name: 'ملاكمة الظل (Shadow Boxing)', duration: '2 دقيقة', calories: 20, desc: 'لكمات سريعة في الهواء مع حركة مستمرة للأقدام.' },
-            { name: 'ركض مع لمس المؤخرة (Butt Kicks)', duration: '45 ثانية', calories: 14, desc: 'الجري في المكان مع ركل المؤخرة بالكعبين.' },
-            { name: 'القفز الجانبي (Lateral Bounds)', duration: '20 تكرار', calories: 16, desc: 'اقفز من جانب لآخر بتوازن على ساق واحدة.' },
-            { name: 'رقص الزومبا (تمرين حر)', duration: '5 دقائق', calories: 40, desc: 'حركات رقص سريعة وممتعة لحرق الدهون.' }
+            { name: 'قفز الرافعات (Jumping Jacks)', duration: '20 ثانية', calories: 15, desc: 'حركة سريعة للإحماء.' },
+            { name: 'تمرين المعدة (Crunches)', duration: '16 تكرار', calories: 20, desc: 'استلقِ وارفع كتفيك عن الأرض.' },
+            { name: 'الدوران الروسي (Russian Twist)', duration: '20 تكرار', calories: 18, desc: 'المس الأرض بجانبك لتقوية الخصر.' },
+            { name: 'تسلق الجبل (Mountain Climber)', duration: '16 تكرار', calories: 22, desc: 'رائع لحرق دهون البطن.' },
+            { name: 'رفع الساقين (Leg Raises)', duration: '14 تكرار', calories: 15, desc: 'يقوي عضلات البطن السفلية.' },
+            { name: 'تمرين البلانك (Plank)', duration: '20 ثانية', calories: 10, desc: 'حافظ على استقامة جسمك.' },
+            { name: 'إطالة الكوبرا (Cobra Stretch)', duration: '30 ثانية', calories: 5, desc: 'إطالة لعضلات البطن في النهاية.' }
         ]
     },
-    'muscle': {
-        title: 'بناء العضلات (تدريب شامل)',
+    'chest-beginner': {
+        title: 'الصدر - مبتدئ',
+        duration: 8,
         exercises: [
-            // Upper Body
-            { name: 'ضغط الصدر (Push-ups)', duration: '15 تكرار', calories: 10, desc: 'التركيز على الصدر، الكتفين، والترايسبس.' },
-            { name: 'الضغط الماسي (Diamond Push-ups)', duration: '10 تكرار', calories: 12, desc: 'تركيز قوي على عضلة الترايسبس.' },
-            { name: 'تمرين الغطس (Tricep Dips)', duration: '12 تكرار', calories: 10, desc: 'استخدم كرسياً لرفع وإنزال جسمك.' },
-            { name: 'البلانك مع لمس الكتف (Plank Taps)', duration: '20 تكرار', calories: 8, desc: 'ثبات الجذع مع حركة الأذرع.' },
-            // Core
-            { name: 'تمرين المعدة (Crunches)', duration: '20 تكرار', calories: 8, desc: 'عزل عضلات البطن العلوية.' },
-            { name: 'رفع الساقين (Leg Raises)', duration: '15 تكرار', calories: 10, desc: 'استهداف عضلات البطن السفلية.' },
-            { name: 'الدوران الروسي (Russian Twists)', duration: '30 تكرار', calories: 12, desc: 'نحت الخصر والجوانب.' },
-            { name: 'تمرين البلانك (Plank)', duration: '60 ثانية', calories: 6, desc: 'تمرين الثبات الأساسي للجسم كله.' },
-            // Lower Body
-            { name: 'القرفصاء (Squats)', duration: '20 تكرار', calories: 12, desc: 'سيد تمارين الأرجل والمؤخرة.' },
-            { name: 'الطعن الأمامي (Forward Lunges)', duration: '12/ساق', calories: 10, desc: 'تقوية الفخذ الأمامي والتوازن.' },
-            { name: 'الطعن الخلفي (Reverse Lunges)', duration: '12/ساق', calories: 10, desc: 'أفضل للركبة، ويركز على المؤخرة.' },
-            { name: 'جسر المؤخرة (Glute Bridges)', duration: '15 تكرار', calories: 8, desc: 'عزل وتقوية عضلات المؤخرة.' },
-            { name: 'رفع السمانة (Calf Raises)', duration: '25 تكرار', calories: 6, desc: 'تقوية عضلة الساق الخلفية (السمانة).' }
+            { name: 'قفز الرافعات (Jumping Jacks)', duration: '30 ثانية', calories: 20, desc: 'إحماء أولي.' },
+            { name: 'ضغط الصدر على الركبة (Knee Push-ups)', duration: '12 تكرار', calories: 25, desc: 'نسخة أسهل من الضغط العادي.' },
+            { name: 'ضغط الصدر العريض (Wide Arm Push-ups)', duration: '10 تكرار', calories: 25, desc: 'ينشط عضلات الصدر بشكل أكبر.' },
+            { name: 'تمرين البلانك (Plank)', duration: '30 ثانية', calories: 15, desc: 'لتقوية الجذع.' },
+            { name: 'إطالة الصدر (Chest Stretch)', duration: '30 ثانية', calories: 5, desc: 'لإرخاء العضلات.' }
         ]
     },
-    'yoga': {
-        title: 'اليوجا والمرونة (صفاء ذهني)',
+    'arm-beginner': {
+        title: 'الذراعين - مبتدئ',
+        duration: 10,
         exercises: [
-            // Flow & Strength
-            { name: 'تحية الشمس (Sun Salutation)', duration: '3 جولات', calories: 15, desc: 'سلسلة حركات متصلة لتنشيط الجسم.' },
-            { name: 'المحارب 1 (Warrior I)', duration: '30 ثانية/ساق', calories: 5, desc: 'قوة وثبات للأرجل والجذع.' },
-            { name: 'المحارب 2 (Warrior II)', duration: '30 ثانية/ساق', calories: 5, desc: 'فتح الحوض وتقوية الأكتاف.' },
-            // Balance
-            { name: 'وضعية الشجرة (Tree Pose)', duration: '45 ثانية/ساق', calories: 4, desc: 'توازن وتركيز عميق.' },
-            { name: 'وضعية النسر (Eagle Pose)', duration: '30 ثانية', calories: 6, desc: 'توازن متقدم وتمدد للأكتاف.' },
-            // Flexibility & Relax
-            { name: 'الكلب المنحني (Downward Dog)', duration: '60 ثانية', calories: 4, desc: 'إطالة كاملة للسلسلة الخلفية.' },
-            { name: 'وضعية الكوبرا (Cobra)', duration: '30 ثانية', calories: 3, desc: 'تمدد عضلات البطن وتقوية الظهر.' },
-            { name: 'وضعية المثلث (Triangle Pose)', duration: '30 ثانية/جانب', calories: 4, desc: 'إطالة الجوانب وأوتار الركبة.' },
-            { name: 'وضعية الحمام (Pigeon Pose)', duration: '45 ثانية/ساق', calories: 4, desc: 'فتح عميق لمنطقة الحوض.' },
-            { name: 'وضعية الطفل (Child\'s Pose)', duration: '2 دقيقة', calories: 2, desc: 'راحة واسترخاء لأسفل الظهر.' },
-            { name: 'تمرين التنفس (Pranayama)', duration: '5 دقائق', calories: 2, desc: 'تنفس بطني عميق لتهدئة الأعصاب.' }
+            { name: 'دوائر الذراعين (Arm Circles)', duration: '30 ثانية', calories: 15, desc: 'إحماء للكتف والذراع.' },
+            { name: 'تمرين الغطس (Triceps Dips)', duration: '10 تكرار', calories: 20, desc: 'استخدم كرسياً لتقوية الترايسبس.' },
+            { name: 'ضغط الصدر الماسي (Diamond Push-ups)', duration: '8 تكرار', calories: 25, desc: 'لتقوية مكثفة للترايسبس.' },
+            { name: 'اللكمات (Punches)', duration: '30 ثانية', calories: 20, desc: 'حركة سريعة ومستمرة.' },
+            { name: 'إطالة الترايسبس (Triceps Stretch)', duration: '30 ثانية', calories: 5, desc: 'لكل ذراع.' }
+        ]
+    },
+    'leg-beginner': {
+        title: 'الساقين - مبتدئ',
+        duration: 12,
+        exercises: [
+            { name: 'الجري في المكان', duration: '30 ثانية', calories: 20, desc: 'إحماء للقدمين.' },
+            { name: 'القرفصاء (Squats)', duration: '14 تكرار', calories: 30, desc: 'تمرين أساسي للساقين.' },
+            { name: 'الطعن الأمامي (Lunges)', duration: '14 تكرار', calories: 25, desc: '7 تكرارات لكل ساق.' },
+            { name: 'رفع السمانة (Calf Raises)', duration: '20 تكرار', calories: 15, desc: 'تقوية عضلة السمانة.' },
+            { name: 'إطالة الفخذ (Quad Stretch)', duration: '30 ثانية', calories: 5, desc: 'لإرخاء أوتار الركبة.' }
+        ]
+    },
+    'abs-intermediate': {
+        title: 'عضلات البطن - متوسط',
+        duration: 15,
+        exercises: [
+            { name: 'قفز الرافعات', duration: '40 ثانية', calories: 30, desc: 'إحماء مكثف.' },
+            { name: 'تمرين V-ups', duration: '14 تكرار', calories: 25, desc: 'لتقوية وسط الجسم بالكامل.' },
+            { name: 'مقص الساقين (Scissors)', duration: '30 ثانية', calories: 25, desc: 'ممتد لعضلات البطن السفلية.' },
+            { name: 'دراجة هوائية (Bicycle Crunches)', duration: '20 تكرار', calories: 30, desc: 'عزل للجوانب.' },
+            { name: 'تمرين البلانك الجانبي (Side Plank)', duration: '20 ثانية', calories: 15, desc: 'قوة جانبية للخصر.' }
+        ]
+    },
+    'chest-intermediate': {
+        title: 'الصدر - متوسط',
+        duration: 14,
+        exercises: [
+            { name: 'ضغط الصدر الكلاسيكي (Push-ups)', duration: '16 تكرار', calories: 35, desc: 'تمرين الصدر بامتياز.' },
+            { name: 'ضغط الصدر مائل (Incline Push-ups)', duration: '14 تكرار', calories: 25, desc: 'لصدر سفلي.' },
+            { name: 'ضغط الصدر المنحدر (Decline Push-ups)', duration: '12 تكرار', calories: 30, desc: 'أقدامك على كرسي، لصدر علوي.' },
+            { name: 'ضغط الصدر الواسع (Wide Push-ups)', duration: '14 تكرار', calories: 30, desc: 'تركيز على أطراف الصدر.' }
+        ]
+    },
+    'full-intermediate': {
+        title: 'الجسم بالكامل - متوسط',
+        duration: 20,
+        exercises: [
+            { name: 'تمرين بيربي (Burpees)', duration: '10 تكرار', calories: 40, desc: 'تمرين كامل وقوي للجسم.' },
+            { name: 'القرفصاء مع القفز (Jump Squats)', duration: '14 تكرار', calories: 35, desc: 'قوة انفجارية للأرجل.' },
+            { name: 'ضغط الصدر (Push-ups)', duration: '14 تكرار', calories: 30, desc: 'تقوية علوية.' },
+            { name: 'تمرين البلانك مع الذراعين (Plank Jacks)', duration: '30 ثانية', calories: 25, desc: 'كارديو مع بلانك.' },
+            { name: 'تسلق الجبل (Mountain Climber)', duration: '30 ثانية', calories: 30, desc: 'قوة للجذع.' }
         ]
     }
 };
 
 // Update Dashboard UI
 function updateDashboardUI() {
-    // 1. Update Goal Buttons
-    const goalBtns = document.querySelectorAll('.goal-btn');
-    if (goalBtns) {
-        goalBtns.forEach(btn => {
-            if (btn.dataset.goal === userData.goal) btn.classList.add('active');
-            else btn.classList.remove('active');
-        });
-    }
-
-    // 2. Update Streak Circles
     const today = new Date();
     const streakContainer = getEl('streak-days');
     if (streakContainer) {
@@ -221,40 +234,32 @@ function updateDashboardUI() {
         const days = ['أحد', 'إثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت'];
 
         let html = '';
-        // Create 7 days view ending today + 2 future
-        for (let i = -4; i <= 2; i++) {
+        for (let i = -6; i <= 0; i++) {
             const d = new Date();
             d.setDate(today.getDate() + i);
             const dateStr = d.toISOString().split('T')[0];
-            const isDone = userData.streak[dateStr]; // true if done
+            const isDone = userData.streak[dateStr];
             const isToday = i === 0;
-            const dayName = days[d.getDay()]; // Arabic day
+            const dayName = days[d.getDay()];
 
             html += `
                 <div class="streak-day ${isDone ? 'active' : ''} ${isToday ? 'today' : ''}" title="${dateStr}">
                     <span>${dayName}</span>
-                    <i class="fa-solid fa-${isDone ? 'check' : 'circle'}"></i>
+                    <i class="fa-solid fa-${isDone ? 'check-circle' : 'circle'}"></i>
                 </div>
             `;
         }
         streakContainer.innerHTML = html;
     }
 
-    // 3. Update Total Calories
+    // Update Stats
     const totalCalEl = getEl('total-burned-calories');
-    if (totalCalEl) totalCalEl.textContent = userData.totalCalories;
-}
+    const totalWorkoutsEl = getEl('total-workouts');
+    const totalMinEl = getEl('total-minutes');
 
-// Initialize Dashboard (Check for elements first)
-const dashGoalContainer = getEl('goal-selection');
-if (dashGoalContainer) {
-    // Goal Selection clicking
-    dashGoalContainer.addEventListener('click', (e) => {
-        if (e.target.classList.contains('goal-btn')) {
-            userData.goal = e.target.dataset.goal;
-            saveData();
-        }
-    });
+    if (totalCalEl) totalCalEl.textContent = userData.totalCalories || 0;
+    if (totalWorkoutsEl) totalWorkoutsEl.textContent = userData.totalWorkouts || 0;
+    if (totalMinEl) totalMinEl.textContent = userData.totalMinutes || 0;
 }
 
 const workoutModal = getEl('workout-modal');
@@ -262,7 +267,6 @@ const modalTitle = getEl('modal-title');
 const modalBody = getEl('modal-body');
 const closeModal = document.querySelector('.close-modal');
 
-// Close Logic
 if (closeModal && workoutModal) {
     closeModal.addEventListener('click', () => {
         workoutModal.classList.remove('show');
@@ -280,9 +284,9 @@ if (workoutModal) {
     });
 }
 
-// Modal Event Delegation
+// Modal Event Delegation for Leap Cards
 document.addEventListener('click', (e) => {
-    const card = e.target.closest('.workout-card');
+    const card = e.target.closest('.leap-card');
 
     if (card) {
         const type = card.getAttribute('data-type');
@@ -292,71 +296,56 @@ document.addEventListener('click', (e) => {
             if (modalTitle) modalTitle.textContent = data.title;
             if (modalBody) {
                 modalBody.innerHTML = `
-                    <div class="modal-tips">
-                        <i class="fa-solid fa-fire-flame-curved"></i>
-                        نصيحة: اختر التمارين التي قمت بها اليوم وسجل إنجازك!
+                    <div class="modal-tips" style="color: var(--text-muted); background: rgba(255,255,255,0.05);">
+                        <i class="fa-regular fa-clock"></i> مدة التمرين المتبقية: <strong>${data.duration} دقيقة</strong>
                     </div>
                     <ul class="exercise-list">
                         ${data.exercises.map((ex) => `
                             <li>
                                 <label class="exercise-checkbox-item">
-                                    <input type="checkbox" class="ex-check" data-cal="${ex.calories}">
+                                    <input type="checkbox" class="ex-check" data-cal="${ex.calories}" checked>
                                     <div class="ex-content">
                                         <div class="ex-header">
                                             <span class="ex-name">${ex.name}</span>
-                                            <span class="ex-cal badge">+${ex.calories} kcal</span>
                                         </div>
                                         <p class="ex-desc">${ex.desc}</p>
-                                        <span class="ex-meta"><i class="fa-regular fa-clock"></i> ${ex.duration}</span>
+                                        <span class="ex-meta"><i class="fa-solid fa-repeat"></i> ${ex.duration}</span>
                                     </div>
                                 </label>
                             </li>
                         `).join('')}
                     </ul>
                     <div class="modal-footer-action">
-                        <div class="session-summary">
-                             مجموع الحرق في هذه الجلسة: <span id="session-cals">0</span> سعرة
-                        </div>
-                        <button id="finish-workout-btn" class="btn btn-primary">تسجيل وإضافة للسجل اليومي</button>
+                        <button id="finish-workout-btn" class="btn btn-primary btn-block" style="font-size: 1.2rem;">إنهاء وحفظ التمرين</button>
                     </div>
                 `;
 
-                // Add Checkbox Logic
-                const checkboxes = modalBody.querySelectorAll('.ex-check');
-                const sessionCalEl = modalBody.querySelector('#session-cals');
                 const finishBtn = modalBody.querySelector('#finish-workout-btn');
+                const checkboxes = modalBody.querySelectorAll('.ex-check');
 
-                checkboxes.forEach(cb => {
-                    cb.addEventListener('change', () => {
-                        let total = 0;
-                        checkboxes.forEach(box => {
-                            if (box.checked) total += parseInt(box.dataset.cal);
-                        });
-                        sessionCalEl.textContent = total;
-                    });
-                });
-
-                // Finish Logic
                 finishBtn.addEventListener('click', () => {
-                    let total = 0;
+                    let totalCal = 0;
                     checkboxes.forEach(box => {
-                        if (box.checked) total += parseInt(box.dataset.cal);
+                        if (box.checked) totalCal += parseInt(box.dataset.cal);
                     });
 
-                    if (total > 0) {
+                    if (totalCal > 0) {
                         const dateStr = new Date().toISOString().split('T')[0];
                         userData.streak[dateStr] = true;
-                        userData.totalCalories += total;
+
+                        userData.totalCalories = (userData.totalCalories || 0) + totalCal;
+                        userData.totalWorkouts = (userData.totalWorkouts || 0) + 1;
+                        userData.totalMinutes = (userData.totalMinutes || 0) + data.duration;
+
                         saveData();
 
-                        // SweetAlert style feedback (using standard alert for now)
-                        alert(`ممتاز! أضفت ${total} سعرة حرارية لرصيدك. استمر في العمل الرائع!`);
+                        alert(`رائع جداً! أتممت التمارين بنجاح. وحرقت ${totalCal} سعرة حرارية!`);
 
                         workoutModal.classList.remove('show');
                         workoutModal.style.display = 'none';
                         document.body.style.overflow = 'auto';
                     } else {
-                        alert('لم تختر أي تمرين! حدد نشاطاً واحداً على الأقل.');
+                        alert('يرجى إنهاء تمرين واحد على الأقل لحفظ التقدم!');
                     }
                 });
             }

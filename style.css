@@ -112,6 +112,7 @@ ul {
     margin-bottom: 0.5rem;
     background: linear-gradient(120deg, var(--text), var(--primary));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -357,11 +358,11 @@ ul {
     color: #e67e22;
 }
 
-/* Workout Dashboard Styles (NEW) */
-.workout-dashboard {
+/* Leap Fitness Style Dashboard */
+.leap-dashboard {
     background: rgba(30, 41, 59, 0.6);
     backdrop-filter: blur(12px);
-    border: 1px solid var(--primary);
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius);
     padding: 2rem;
     margin-bottom: 3rem;
@@ -369,49 +370,12 @@ ul {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-.dash-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-/* Goal Selector */
-.goal-selection {
-    display: flex;
-    gap: 10px;
-}
-
-.goal-btn {
-    background: transparent;
-    border: 1px solid var(--text-muted);
-    color: var(--text-muted);
-    padding: 8px 16px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: var(--transition);
-    font-family: inherit;
-    font-size: 0.9rem;
-}
-
-.goal-btn.active {
-    background: var(--primary);
-    color: var(--bg);
-    border-color: var(--primary);
-    font-weight: bold;
-    box-shadow: 0 0 10px rgba(0, 255, 200, 0.3);
-}
-
-/* Stats Row */
-.dash-stats {
+.leap-stats {
     display: flex;
     justify-content: space-around;
     background: rgba(255, 255, 255, 0.03);
     padding: 1.5rem;
     border-radius: 12px;
-    margin-bottom: 2rem;
 }
 
 .stat-item {
@@ -420,23 +384,17 @@ ul {
 
 .stat-val {
     display: block;
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 700;
     color: var(--primary);
 }
 
 .stat-label {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-muted);
 }
 
 /* Streak Tracker */
-.streak-tracker h4 {
-    margin-bottom: 1rem;
-    color: var(--text);
-    text-align: center;
-}
-
 .streak-days {
     display: flex;
     justify-content: center;
@@ -477,28 +435,58 @@ ul {
     opacity: 1;
 }
 
-/* Workouts */
-.workout-grid {
+/* Workout Categories Leap Style */
+.category-heading {
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.level-indicator {
+    font-size: 1.2rem;
+}
+
+.leap-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
 }
 
-.workout-card {
-    text-align: center;
-    transition: var(--transition);
+.leap-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
     cursor: pointer;
+    transition: var(--transition);
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+    border-left: 4px solid var(--primary);
+    border-radius: var(--radius);
 }
 
-.workout-card:hover {
-    transform: translateY(-10px);
-    border-color: var(--primary);
+.leap-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--secondary);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
 
-.icon-box {
-    font-size: 3rem;
-    color: var(--primary);
-    margin-bottom: 1.5rem;
+.leap-card-content h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+    color: var(--text);
+}
+
+.leap-card-content p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.leap-card-icon {
+    font-size: 2.5rem;
+    opacity: 0.8;
 }
 
 /* Footer */
@@ -769,12 +757,7 @@ ul {
 
 /* Responsive Dashboard */
 @media (max-width: 600px) {
-    .dash-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .dash-stats {
+    .leap-stats {
         flex-direction: column;
         gap: 1.5rem;
     }

@@ -99,59 +99,98 @@
         </div>
     </section>
 
-    <!-- Workouts -->
+    <!-- Workouts (Leap Fitness Style) -->
     <section id="workouts" class="section workouts" style="margin-top: 5rem;">
         <div class="container">
             <div class="section-header">
-                <h2>التمارين الرياضية</h2>
-                <p>خطط تمارينك، تابع تقدمك، وسجل السعرات المحروقة يومياً.</p>
+                <h2>التمارين المنزلية</h2>
+                <p>تدرب في المنزل بدون معدات، خطط متكاملة تناسب جميع المستويات.</p>
             </div>
 
-            <!-- Workout Dashboard (New Feature) -->
-            <div class="workout-dashboard glass" id="workout-dashboard">
-                <div class="dash-header">
-                    <h3>لوحة التحكم الخاصة بك</h3>
-                    <div class="goal-selection" id="goal-selection">
-                        <button class="goal-btn active" data-goal="muscle">بناء عضلات</button>
-                        <button class="goal-btn" data-goal="weight_loss">تخسيس</button>
-                        <button class="goal-btn" data-goal="tone">لياقة بدنية</button>
+            <!-- Leap Dashboard -->
+            <div class="leap-dashboard glass" id="workout-dashboard">
+                <div class="leap-stats">
+                    <div class="stat-item">
+                        <span class="stat-val" id="total-workouts">0</span>
+                        <span class="stat-label">تمرين</span>
                     </div>
-                </div>
-
-                <div class="dash-stats">
                     <div class="stat-item">
                         <span class="stat-val" id="total-burned-calories">0</span>
-                        <span class="stat-label">مجموع الحرق (kcal)</span>
+                        <span class="stat-label">ك.كالوري</span>
                     </div>
-                    <!-- Could add more stats later -->
+                    <div class="stat-item">
+                        <span class="stat-val" id="total-minutes">0</span>
+                        <span class="stat-label">دقيقة</span>
+                    </div>
                 </div>
-
-                <div class="streak-tracker">
-                    <h4>سجل الالتزام (أخر 7 أيام)</h4>
+                <!-- Weekly Streak -->
+                <div class="streak-tracker" style="margin-top: 2rem;">
+                    <h4 style="margin-bottom: 1rem; color: var(--text); text-align: center;">الالتزام الأسبوعي (أخر 7
+                        أيام)</h4>
                     <div class="streak-days" id="streak-days">
                         <!-- Days injected via JS -->
                     </div>
                 </div>
             </div>
 
-            <div class="workout-grid">
-                <div class="workout-card glass" data-type="cardio">
-                    <div class="icon-box"><i class="fa-solid fa-person-running"></i></div>
-                    <h3>كارديو وحرق دهون</h3>
-                    <p>تمارين لرفع نبضات القلب وحرق السعرات الحرارية بفعالية.</p>
-                    <button class="btn btn-secondary btn-sm" style="margin-top: 1rem;">عرض التمارين</button>
+            <div class="workout-categories">
+                <!-- Beginner -->
+                <h3 class="category-heading">مبتدئ <span class="level-indicator" style="color:#2ecc71;">⚡️</span></h3>
+                <div class="leap-grid">
+                    <div class="leap-card glass" data-type="abs-beginner">
+                        <div class="leap-card-content">
+                            <h4>عضلات البطن</h4>
+                            <p>مبتدئ</p>
+                        </div>
+                        <div class="leap-card-icon" style="color:#2ecc71;"><i class="fa-solid fa-child"></i></div>
+                    </div>
+                    <div class="leap-card glass" data-type="chest-beginner">
+                        <div class="leap-card-content">
+                            <h4>الصدر</h4>
+                            <p>مبتدئ</p>
+                        </div>
+                        <div class="leap-card-icon" style="color:#3498db;"><i class="fa-solid fa-male"></i></div>
+                    </div>
+                    <div class="leap-card glass" data-type="arm-beginner">
+                        <div class="leap-card-content">
+                            <h4>الذراعين</h4>
+                            <p>مبتدئ</p>
+                        </div>
+                        <div class="leap-card-icon" style="color:#e74c3c;"><i class="fa-solid fa-hand-fist"></i></div>
+                    </div>
+                    <div class="leap-card glass" data-type="leg-beginner">
+                        <div class="leap-card-content">
+                            <h4>الساقين</h4>
+                            <p>مبتدئ</p>
+                        </div>
+                        <div class="leap-card-icon" style="color:#f1c40f;"><i class="fa-solid fa-running"></i></div>
+                    </div>
                 </div>
-                <div class="workout-card glass" data-type="muscle">
-                    <div class="icon-box"><i class="fa-solid fa-dumbbell"></i></div>
-                    <h3>بناء العضلات</h3>
-                    <p>تمارين مقاومة لزيادة الكتلة العضلية والقوة البدنية.</p>
-                    <button class="btn btn-secondary btn-sm" style="margin-top: 1rem;">عرض التمارين</button>
-                </div>
-                <div class="workout-card glass" data-type="yoga">
-                    <div class="icon-box"><i class="fa-solid fa-yin-yang"></i></div>
-                    <h3>يوجا ومرونة</h3>
-                    <p>تحسين المرونة والاسترخاء الذهني والجسدي.</p>
-                    <button class="btn btn-secondary btn-sm" style="margin-top: 1rem;">عرض التمارين</button>
+
+                <!-- Intermediate -->
+                <h3 class="category-heading">متوسط <span class="level-indicator" style="color:#f1c40f;">⚡️⚡️</span></h3>
+                <div class="leap-grid">
+                    <div class="leap-card glass" data-type="abs-intermediate">
+                        <div class="leap-card-content">
+                            <h4>عضلات البطن</h4>
+                            <p>متوسط</p>
+                        </div>
+                        <div class="leap-card-icon" style="color:#2ecc71;"><i class="fa-solid fa-child"></i></div>
+                    </div>
+                    <div class="leap-card glass" data-type="chest-intermediate">
+                        <div class="leap-card-content">
+                            <h4>الصدر</h4>
+                            <p>متوسط</p>
+                        </div>
+                        <div class="leap-card-icon" style="color:#3498db;"><i class="fa-solid fa-male"></i></div>
+                    </div>
+                    <div class="leap-card glass" data-type="full-intermediate">
+                        <div class="leap-card-content">
+                            <h4>الجسم بالكامل</h4>
+                            <p>متوسط</p>
+                        </div>
+                        <div class="leap-card-icon" style="color:#9b59b6;"><i class="fa-solid fa-dumbbell"></i></div>
+                    </div>
                 </div>
             </div>
 
