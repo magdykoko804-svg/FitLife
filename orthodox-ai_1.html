@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>نور الإيمان | Light of Faith – Orthodox AI</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Amiri+Quran&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================
+       CSS VARIABLES – BYZANTINE GOLD
+    ============================ */
+    :root {
+      --bg-deep:       #060810;
+      --bg-panel:      #0d1120;
+      --bg-card:       #111827;
+      --gold-bright:   #d4a940;
+      --gold-mid:      #b08d2a;
+      --gold-dim:      #7a601a;
+      --gold-glow:     rgba(212,169,64,0.18);
+      --crimson:       #8b1a1a;
+      --crimson-light: #c0392b;
+      --ivory:         #f5ead6;
+      --text-main:     #e8d9b8;
+      --text-sub:      #a89060;
+      --border:        rgba(212,169,64,0.25);
+      --radius:        12px;
+      --font-en:       'Cinzel', serif;
+      --font-deco:     'Cinzel Decorative', serif;
+      --font-ar:       'Amiri', serif;
+      --font-body:     'EB Garamond', serif;
+    }
+
+    /* ============================  RESET  ============================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg-deep);
+      color: var(--text-main);
+      font-family: var(--font-ar);
+      font-size: 17px;
+      line-height: 1.8;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(212,169,64,0.06) 0%, transparent 70%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4a940' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    /* ============================  DECORATIVE  ============================ */
+    .cross-ornament {
+      text-align: center;
+      color: var(--gold-bright);
+      font-size: 22px;
+      letter-spacing: 12px;
+      opacity: 0.7;
+      user-select: none;
+    }
+    .divider {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dim), var(--gold-bright), var(--gold-dim), transparent);
+      margin: 20px 0;
+    }
+
+    /* ============================  HEADER  ============================ */
+    header {
+      position: relative;
+      text-align: center;
+      padding: 48px 24px 32px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(139,26,26,0.12) 0%, transparent 100%);
+    }
+
+    .header-cross {
+      font-size: 48px;
+      color: var(--gold-bright);
+      text-shadow: 0 0 30px rgba(212,169,64,0.5), 0 0 60px rgba(212,169,64,0.3);
+      animation: glowPulse 3s ease-in-out infinite;
+      display: block;
+      margin-bottom: 8px;
+    }
+    @keyframes glowPulse {
+      0%,100% { text-shadow: 0 0 20px rgba(212,169,64,0.4), 0 0 50px rgba(212,169,64,0.2); }
+      50%      { text-shadow: 0 0 40px rgba(212,169,64,0.8), 0 0 80px rgba(212,169,64,0.4); }
+    }
+
+    .site-title-ar {
+      font-family: var(--font-ar);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--gold-bright);
+      text-shadow: 0 2px 20px rgba(212,169,64,0.4);
+      line-height: 1.2;
+    }
+    .site-title-en {
+      font-family: var(--font-deco);
+      font-size: clamp(0.9rem, 2.5vw, 1.5rem);
+      color: var(--gold-mid);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+    .site-subtitle {
+      font-family: var(--font-ar);
+      font-style: italic;
+      color: var(--text-sub);
+      font-size: 1rem;
+      margin-top: 12px;
+    }
+
+    /* Language Toggle */
+    .lang-toggle {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      gap: 6px;
+    }
+    .lang-btn {
+      padding: 6px 16px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: transparent;
+      color: var(--text-sub);
+      font-family: var(--font-en);
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      letter-spacing: 1px;
+    }
+    .lang-btn.active, .lang-btn:hover {
+      background: var(--gold-glow);
+      border-color: var(--gold-bright);
+      color: var(--gold-bright);
+    }
+
+    /* ============================  NAV  ============================ */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      padding: 18px 24px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+      background: rgba(13,17,32,0.8);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+    .nav-btn {
+      padding: 8px 22px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-sub);
+      font-family: var(--font-ar);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .nav-btn:hover, .nav-btn.active {
+      background: var(--gold-glow);
+      border-color: var(--gold-bright);
+      color: var(--gold-bright);
+      box-shadow: 0 0 15px rgba(212,169,64,0.1);
+    }
+
+    /* ============================  MAIN LAYOUT  ============================ */
+    main { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+    .section { display: none; }
+    .section.active { display: block; animation: fadeIn 0.5s ease; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+    .section-title {
+      font-family: var(--font-ar);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--gold-bright);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .section-title-en {
+      font-family: var(--font-deco);
+      text-align: center;
+      color: var(--gold-dim);
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      margin-bottom: 28px;
+      display: block;
+    }
+
+    /* ============================  CHAT SECTION  ============================ */
+    .chat-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+    @media(max-width:800px) {
+      .chat-wrapper { grid-template-columns: 1fr; }
+    }
+
+    .chat-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(212,169,64,0.05);
+    }
+
+    .chat-messages {
+      height: 500px;
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      scroll-behavior: smooth;
+    }
+    .chat-messages::-webkit-scrollbar { width: 4px; }
+    .chat-messages::-webkit-scrollbar-track { background: transparent; }
+    .chat-messages::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+
+    .message {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      animation: msgIn 0.3s ease;
+    }
+    @keyframes msgIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+    .message.user { align-items: flex-start; }
+    .message.ai { align-items: flex-end; }
+
+    .msg-label {
+      font-size: 0.72rem;
+      color: var(--text-sub);
+      font-family: var(--font-en);
+      letter-spacing: 1px;
+    }
+    .msg-bubble {
+      max-width: 85%;
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-family: var(--font-ar);
+      font-size: 1rem;
+      line-height: 1.85;
+    }
+    .message.user .msg-bubble {
+      background: rgba(139,26,26,0.25);
+      border: 1px solid rgba(139,26,26,0.4);
+      border-radius: 12px 12px 12px 2px;
+      color: var(--ivory);
+    }
+    .message.ai .msg-bubble {
+      background: linear-gradient(135deg, rgba(212,169,64,0.08), rgba(212,169,64,0.04));
+      border: 1px solid var(--border);
+      border-radius: 12px 12px 2px 12px;
+      color: var(--text-main);
+      white-space: pre-wrap;
+    }
+    .ai-icon { font-size: 1.2em; margin-left: 6px; }
+
+    /* Input Area */
+    .chat-input-area {
+      border-top: 1px solid var(--border);
+      padding: 16px;
+      background: rgba(13,17,32,0.6);
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    .chat-textarea {
+      flex: 1;
+      background: rgba(6,8,16,0.6);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-main);
+      font-family: var(--font-ar);
+      font-size: 0.95rem;
+      padding: 12px 16px;
+      resize: none;
+      min-height: 48px;
+      max-height: 140px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .chat-textarea:focus { border-color: var(--gold-mid); }
+    .chat-textarea::placeholder { color: var(--text-sub); }
+
+    .send-btn {
+      padding: 12px 22px;
+      background: linear-gradient(135deg, var(--gold-bright), var(--gold-mid));
+      border: none;
+      border-radius: 8px;
+      color: var(--bg-deep);
+      font-family: var(--font-ar);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+    .send-btn:hover { box-shadow: 0 4px 20px rgba(212,169,64,0.4); transform: translateY(-1px); }
+    .send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* Suggestions Panel */
+    .suggestions-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .suggestions-panel h3 {
+      font-family: var(--font-ar);
+      color: var(--gold-bright);
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .suggestion-chip {
+      display: block;
+      width: 100%;
+      text-align: right;
+      background: rgba(212,169,64,0.04);
+      border: 1px solid rgba(212,169,64,0.15);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: var(--text-sub);
+      font-family: var(--font-ar);
+      font-size: 0.85rem;
+      cursor: pointer;
+      margin-bottom: 8px;
+      transition: all 0.25s;
+      line-height: 1.5;
+    }
+    .suggestion-chip:hover {
+      background: var(--gold-glow);
+      border-color: var(--gold-bright);
+      color: var(--gold-bright);
+    }
+
+    /* typing dots */
+    .typing-dots span {
+      display: inline-block;
+      width: 7px; height: 7px;
+      background: var(--gold-mid);
+      border-radius: 50%;
+      margin: 0 2px;
+      animation: dot 1.2s infinite;
+    }
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes dot {
+      0%,80%,100% { transform:scale(0.6); opacity:0.3; }
+      40% { transform:scale(1); opacity:1; }
+    }
+
+    /* ============================  LIBRARY SECTION  ============================ */
+    .library-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .lib-category {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .lib-cat-header {
+      background: linear-gradient(135deg, rgba(139,26,26,0.3), rgba(212,169,64,0.1));
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .lib-cat-icon { font-size: 1.4rem; }
+    .lib-cat-title {
+      font-family: var(--font-ar);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gold-bright);
+    }
+    .lib-items { padding: 12px; }
+    .lib-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-radius: 8px;
+      transition: background 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+    .lib-item:hover { background: var(--gold-glow); }
+    .lib-item-name { font-family: var(--font-ar); font-size: 0.9rem; }
+    .lib-item-lang {
+      font-family: var(--font-en);
+      font-size: 0.7rem;
+      color: var(--text-sub);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 6px;
+      letter-spacing: 0.5px;
+    }
+    .lib-item-arrow { color: var(--gold-dim); font-size: 0.85rem; margin-right: 4px; }
+
+    /* ============================  ABOUT SECTION  ============================ */
+    .about-card {
+      max-width: 750px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      text-align: center;
+    }
+    .about-card p {
+      font-family: var(--font-ar);
+      color: var(--text-main);
+      font-size: 1.05rem;
+      line-height: 2;
+      margin-bottom: 18px;
+    }
+    .about-card .quote {
+      font-family: var(--font-ar);
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--gold-bright);
+      border-right: 3px solid var(--gold-bright);
+      padding-right: 18px;
+      margin: 24px 0;
+      text-align: right;
+    }
+    .feature-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 24px;
+      text-align: right;
+    }
+    @media(max-width:600px) { .feature-list { grid-template-columns: 1fr; } }
+    .feature-item {
+      background: rgba(212,169,64,0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .feature-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .feature-text { font-family: var(--font-ar); font-size: 0.9rem; color: var(--text-sub); }
+
+    /* ============================  FOOTER  ============================ */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      border-top: 1px solid var(--border);
+      color: var(--text-sub);
+      font-size: 0.8rem;
+      font-family: var(--font-ar);
+      margin-top: 60px;
+    }
+    footer .footer-cross {
+      font-size: 1.4rem;
+      color: var(--gold-dim);
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    /* ============================  ENGLISH MODE  ============================ */
+    body.lang-en { direction: ltr; font-family: var(--font-body); }
+    body.lang-en .site-title-ar { display: none; }
+    body.lang-en .site-title-en { font-size: clamp(1.2rem, 3vw, 2.2rem); color: var(--gold-bright); }
+    body.lang-en .chat-textarea, body.lang-en .msg-bubble,
+    body.lang-en .nav-btn, body.lang-en .suggestion-chip,
+    body.lang-en .send-btn, body.lang-en .lib-item-name,
+    body.lang-en .about-card p { font-family: var(--font-body); }
+    body.lang-en .message.user .msg-bubble { border-radius: 12px 12px 2px 12px; }
+    body.lang-en .message.ai .msg-bubble { border-radius: 12px 12px 12px 2px; }
+    body.lang-en .about-card .quote { border-right: none; border-left: 3px solid var(--gold-bright); padding-right: 0; padding-left: 18px; }
+    body.lang-en .feature-list { text-align: left; }
+    body.lang-en .lib-item-arrow { margin-right: 0; margin-left: 4px; }
+  </style>
+</head>
+<body>
+
+<!-- ============================  HEADER  ============================ -->
+<header>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('ar')" id="btn-ar">عربي</button>
+    <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+  </div>
+
+  <span class="header-cross">✝</span>
+  <div class="site-title-ar" id="title-ar">نور الإيمان الأرثوذكسي</div>
+  <div class="site-title-en" id="title-en">LIGHT OF ORTHODOX FAITH</div>
+  <div class="site-subtitle" id="subtitle-text">
+    ذكاء اصطناعي للإجابة عن أسئلة الإيمان الأرثوذكسي السليم
+  </div>
+  <hr class="divider" style="margin-top:20px;" />
+  <div class="cross-ornament">✦ ✝ ✦</div>
+</header>
+
+<!-- ============================  NAV  ============================ -->
+<nav>
+  <button class="nav-btn active" onclick="showSection('chat')" id="nav-chat">💬 المساعد الذكي</button>
+  <button class="nav-btn" onclick="showSection('library')" id="nav-library">📚 المكتبة الأرثوذكسية</button>
+  <button class="nav-btn" onclick="showSection('about')" id="nav-about">✝ عن النموذج</button>
+</nav>
+
+<!-- ============================  MAIN  ============================ -->
+<main>
+
+  <!-- == CHAT SECTION == -->
+  <section class="section active" id="section-chat">
+    <h2 class="section-title" id="chat-title">المساعد الروحي الذكي</h2>
+    <span class="section-title-en">Orthodox AI Spiritual Assistant</span>
+    <div class="chat-wrapper">
+      <!-- Chat Box -->
+      <div class="chat-box">
+        <div class="chat-messages" id="chatMessages">
+          <div class="message ai">
+            <span class="msg-label">✝ نور الإيمان</span>
+            <div class="msg-bubble" id="welcome-msg">
+              السلام لك أيها المؤمن 🙏
+
+أنا هنا لمساعدتك في الإجابة عن أي سؤال يتعلق بالإيمان الأرثوذكسي السليم، سواء كان:
+
+• أسئلة عقدية أو لاهوتية
+• شبهات يثيرها غير المؤمنين
+• تفسير نصوص الكتاب المقدس
+• آباء الكنيسة وتعاليمهم
+• الطقوس والأسرار المقدسة
+
+تفضّل، اسألني بحرية. ✝
+            </div>
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <textarea
+            class="chat-textarea"
+            id="chatInput"
+            placeholder="اكتب سؤالك هنا..."
+            rows="1"
+            onkeydown="handleKey(event)"
+            oninput="autoResize(this)"
+          ></textarea>
+          <button class="send-btn" id="sendBtn" onclick="sendMessage()">إرسال ✝</button>
+        </div>
+      </div>
+
+      <!-- Suggestions -->
+      <div class="suggestions-panel">
+        <h3 id="suggestions-title">✦ أسئلة مقترحة</h3>
+        <button class="suggestion-chip" onclick="useSuggestion(this)">ما هي أسرار الكنيسة السبعة؟</button>
+        <button class="suggestion-chip" onclick="useSuggestion(this)">كيف نرد على شبهة التثليث؟</button>
+        <button class="suggestion-chip" onclick="useSuggestion(this)">ما الفرق بين الطبيعة الإلهية والبشرية في المسيح؟</button>
+        <button class="suggestion-chip" onclick="useSuggestion(this)">ما معنى التجسّد في اللاهوت الأرثوذكسي؟</button>
+        <button class="suggestion-chip" onclick="useSuggestion(this)">شرح عقيدة الخلاص في الفكر الأرثوذكسي</button>
+        <button class="suggestion-chip" onclick="useSuggestion(this)">كيف نفهم العذراء مريم في الأرثوذكسية؟</button>
+        <button class="suggestion-chip" onclick="useSuggestion(this)">ما موقف الكنيسة من سفر الرؤيا؟</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- == LIBRARY SECTION == -->
+  <section class="section" id="section-library">
+    <h2 class="section-title" id="library-title">المكتبة الأرثوذكسية المقدسة</h2>
+    <span class="section-title-en">Orthodox Sacred Library</span>
+    <div class="library-grid">
+
+      <!-- الكتاب المقدس -->
+      <div class="lib-category">
+        <div class="lib-cat-header">
+          <span class="lib-cat-icon">📖</span>
+          <span class="lib-cat-title" id="lib-bible-title">الكتاب المقدس بعهديه</span>
+        </div>
+        <div class="lib-items">
+          <a class="lib-item" href="https://bible.com/ar/bible/191/GEN.1.ARV" target="_blank" rel="noopener">
+            <span class="lib-item-name" id="li-bible-ar">الكتاب المقدس – عربي (فان دايك)</span>
+            <span><span class="lib-item-lang">AR</span><span class="lib-item-arrow">→</span></span>
+          </a>
+          <a class="lib-item" href="https://www.biblegateway.com/versions/New-King-James-Version-NKJV-Bible/" target="_blank" rel="noopener">
+            <span class="lib-item-name" id="li-bible-en">Holy Bible – NKJV (English)</span>
+            <span><span class="lib-item-lang">EN</span><span class="lib-item-arrow">→</span></span>
+          </a>
+          <a class="lib-item" href="https://st-takla.org/bible/index.htm" target="_blank" rel="noopener">
+            <span class="lib-item-name" id="li-bible-sttak">الكتاب المقدس – موقع الأنبا تكلا</span>
+            <span><span class="lib-item-lang">AR</span><span class="lib-item-arrow">→</span></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- الأجبية -->
+      <div class="lib-category">
+        <div class="lib-cat-header">
+          <span class="lib-cat-icon">🕯️</span>
+          <span class="lib-cat-title" id="lib-agpeya-title">الأجبية – ساعات الصلاة</span>
+        </div>
+        <div class="lib-items">
+          <a class="lib-item" href="https://tasbeha.org/agpeya" target="_blank" rel="noopener">
+            <span class="lib-item-name">الأجبية الكاملة – Tasbeha.org</span>
+            <span><span class="lib-item-lang">AR/COPT</span><span class="lib-item-arrow">→</span></span>
+          </a>
+          <a class="lib-item" href="https://agpeyaapp.com" target="_blank" rel="noopener">
+            <span class="lib-item-name">Agpeya App – الأجبية الإلكترونية</span>
+            <span><span class="lib-item-lang">Multi</span><span class="lib-item-arrow">→</span></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- آباء الكنيسة -->
+      <div class="lib-category">
+        <div class="lib-cat-header">
+          <span class="lib-cat-icon">✍️</span>
+          <span class="lib-cat-title" id="lib-fathers-title">كتابات آباء الكنيسة</span>
+        </div>
+        <div class="lib-items">
+          <a class="lib-item" href="https://st-takla.org/pub_fathers.html" target="_blank" rel="noopener">
+            <span class="lib-item-name">آباء الكنيسة – الأنبا تكلا</span>
+            <span><span class="lib-item-lang">AR</span><span class="lib-item-arrow">→</span></span>
+          </a>
+          <a class="lib-item" href="https://www.newadvent.org/fathers/" target="_blank" rel="noopener">
+            <span class="lib-item-name">Ante-Nicene Fathers – Newadvent</span>
+            <span><span class="lib-item-lang">EN</span><span class="lib-item-arrow">→</span></span>
+          </a>
+          <a class="lib-item" href="https://copticchurch.net/patrology/" target="_blank" rel="noopener">
+            <span class="lib-item-name">Coptic Patrology – CopticChurch.net</span>
+            <span><span class="lib-item-lang">EN</span><span class="lib-item-arrow">→</span></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- اللاهوت الأرثوذكسي -->
+      <div class="lib-category">
+        <div class="lib-cat-header">
+          <span class="lib-cat-icon">🏛️</span>
+          <span class="lib-cat-title" id="lib-theology-title">اللاهوت والدفاع عن الإيمان</span>
+        </div>
+        <div class="lib-items">
+          <a class="lib-item" href="https://www.copticorthodox.church" target="_blank" rel="noopener">
+            <span class="lib-item-name">الكنيسة القبطية الأرثوذكسية الرسمية</span>
+            <span><span class="lib-item-lang">AR</span><span class="lib-item-arrow">→</span></span>
+          </a>
+          <a class="lib-item" href="https://st-takla.org/beliefs/index.htm" target="_blank" rel="noopener">
+            <span class="lib-item-name">الإيمان المسيحي – الأنبا تكلا</span>
+            <span><span class="lib-item-lang">AR</span><span class="lib-item-arrow">→</span></span>
+          </a>
+          <a class="lib-item" href="https://suscopts.org/resources/books/" target="_blank" rel="noopener">
+            <span class="lib-item-name">SUS Copts – Orthodox Books Library</span>
+            <span><span class="lib-item-lang">EN</span><span class="lib-item-arrow">→</span></span>
+          </a>
+          <a class="lib-item" href="https://orthodoxwiki.org/" target="_blank" rel="noopener">
+            <span class="lib-item-name">OrthodoxWiki – الموسوعة الأرثوذكسية</span>
+            <span><span class="lib-item-lang">EN/Multi</span><span class="lib-item-arrow">→</span></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- الطقوس والتراتيل -->
+      <div class="lib-category">
+        <div class="lib-cat-header">
+          <span class="lib-cat-icon">🎶</span>
+          <span class="lib-cat-title" id="lib-hymns-title">الطقوس والتراتيل القبطية</span>
+        </div>
+        <div class="lib-items">
+          <a class="lib-item" href="https://tasbeha.org" target="_blank" rel="noopener">
+            <span class="lib-item-name">Tasbeha.org – ترانيم وتسابيح</span>
+            <span><span class="lib-item-lang">COPT/AR/EN</span><span class="lib-item-arrow">→</span></span>
+          </a>
+          <a class="lib-item" href="https://www.copticreader.com" target="_blank" rel="noopener">
+            <span class="lib-item-name">Coptic Reader – القارئ القبطي</span>
+            <span><span class="lib-item-lang">Multi</span><span class="lib-item-arrow">→</span></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- الدفاعيات -->
+      <div class="lib-category">
+        <div class="lib-cat-header">
+          <span class="lib-cat-icon">🛡️</span>
+          <span class="lib-cat-title" id="lib-apologetics-title">الدفاعيات والرد على الشبهات</span>
+        </div>
+        <div class="lib-items">
+          <a class="lib-item" href="https://www.elkalema.com" target="_blank" rel="noopener">
+            <span class="lib-item-name">موقع الكلمة – دفاعيات مسيحية</span>
+            <span><span class="lib-item-lang">AR</span><span class="lib-item-arrow">→</span></span>
+          </a>
+          <a class="lib-item" href="https://www.answering-islam.org" target="_blank" rel="noopener">
+            <span class="lib-item-name">Answering Islam – Apologetics</span>
+            <span><span class="lib-item-lang">EN</span><span class="lib-item-arrow">→</span></span>
+          </a>
+          <a class="lib-item" href="https://www.monachos.net" target="_blank" rel="noopener">
+            <span class="lib-item-name">Monachos.net – Orthodox Theology</span>
+            <span><span class="lib-item-lang">EN</span><span class="lib-item-arrow">→</span></span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- == ABOUT SECTION == -->
+  <section class="section" id="section-about">
+    <h2 class="section-title" id="about-title">عن النموذج</h2>
+    <span class="section-title-en">About This Model</span>
+    <div class="about-card">
+      <div class="cross-ornament">✦ ✝ ✦</div>
+      <br/>
+      <p id="about-p1">
+        <strong>نور الإيمان الأرثوذكسي</strong> هو نموذج ذكاء اصطناعي متخصص في الإجابة عن أسئلة الإيمان المسيحي الأرثوذكسي بطريقة علمية ومستندة إلى الكتاب المقدس وآباء الكنيسة والتقليد الكنسي.
+      </p>
+      <div class="quote" id="about-quote">
+        «أَنَا هُوَ الطَّرِيقُ وَالْحَقُّ وَالْحَيَاةُ.» — يوحنا ١٤:٦
+      </div>
+      <p id="about-p2">
+        يعمل النموذج وفق منهجية اللاهوت الأرثوذكسي السليم، ملتزماً بتعاليم الكنيسة القبطية الأرثوذكسية وسائر الكنائس الأرثوذكسية الشرقية، ومستنداً إلى كتابات القديسين والآباء الرسوليين.
+      </p>
+      <div class="feature-list">
+        <div class="feature-item"><span class="feature-icon">📖</span><span class="feature-text" id="f1">إجابات مستندة إلى الكتاب المقدس بعهديه</span></div>
+        <div class="feature-item"><span class="feature-icon">✝</span><span class="feature-text" id="f2">مبنيّ على تعاليم آباء الكنيسة</span></div>
+        <div class="feature-item"><span class="feature-icon">🛡️</span><span class="feature-text" id="f3">يرد على الشبهات بأسلوب علمي ومتأنٍ</span></div>
+        <div class="feature-item"><span class="feature-icon">🌐</span><span class="feature-text" id="f4">متاح بالعربية والإنجليزية</span></div>
+        <div class="feature-item"><span class="feature-icon">📚</span><span class="feature-text" id="f5">مكتبة من المصادر الأرثوذكسية الموثوقة</span></div>
+        <div class="feature-item"><span class="feature-icon">🕊️</span><span class="feature-text" id="f6">بروح المحبة والتواضع والحكمة</span></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="footer-cross">✝</span>
+  <div id="footer-text">جميع الحقوق محفوظة • نور الإيمان الأرثوذكسي • لمجد الله وحده</div>
+</footer>
+
+<!-- ============================  JAVASCRIPT  ============================ -->
+<script>
+/* -----  LANGUAGE  ----- */
+let currentLang = 'ar';
+
+const translations = {
+  ar: {
+    subtitle: 'ذكاء اصطناعي للإجابة عن أسئلة الإيمان الأرثوذكسي السليم',
+    navChat: '💬 المساعد الذكي', navLibrary: '📚 المكتبة الأرثوذكسية', navAbout: '✝ عن النموذج',
+    chatTitle: 'المساعد الروحي الذكي', suggTitle: '✦ أسئلة مقترحة',
+    placeholder: 'اكتب سؤالك هنا...', sendBtn: 'إرسال ✝',
+    libTitle: 'المكتبة الأرثوذكسية المقدسة', aboutTitle: 'عن النموذج',
+    footerText: 'جميع الحقوق محفوظة • نور الإيمان الأرثوذكسي • لمجد الله وحده',
+    aiLabel: '✝ نور الإيمان', userLabel: 'أنت',
+    systemPrompt: `أنت نموذج ذكاء اصطناعي متخصص في الإجابة عن أسئلة الإيمان المسيحي الأرثوذكسي السليم. 
+تتبع تعاليم الكنيسة الأرثوذكسية (القبطية والأرثوذكسية الشرقية والأرثوذكسية الكاثوليكية والملكية) وتستند إلى:
+- الكتاب المقدس بعهديه (العهد القديم والعهد الجديد)
+- كتابات آباء الكنيسة الأوائل (الآباء الرسوليين والآباء اليونانيين واللاتينيين والقبطيين)
+- المجامع المسكونية السبعة
+- التقليد الكنسي الأرثوذكسي
+
+إرشادات الإجابة:
+1. أجب بشكل تفصيلي ومنهجي، مستنداً إلى الأدلة الكتابية والآبائية
+2. عند الرد على الشبهات، افعل ذلك بأسلوب علمي محترم وبروح المحبة
+3. اذكر الآيات الكتابية الداعمة بدقة
+4. اذكر أقوال الآباء القديسين عند الاقتضاء
+5. حافظ على أسلوب روحي لائق وأدب رفيع
+6. عند عدم اليقين، أشر إلى ذلك ووجّه المستخدم إلى المصادر الموثوقة
+7. لا تخوض في مسائل خلافية طائفية بأسلوب انتقادي للكنائس الأخرى
+
+تحدث دائماً بالعربية الفصيحة الواضحة ما لم يطلب المستخدم غير ذلك.`
+  },
+  en: {
+    subtitle: 'An AI model answering questions about sound Orthodox Christian Faith',
+    navChat: '💬 AI Assistant', navLibrary: '📚 Orthodox Library', navAbout: '✝ About',
+    chatTitle: 'Orthodox AI Spiritual Assistant', suggTitle: '✦ Suggested Questions',
+    placeholder: 'Type your question here...', sendBtn: 'Send ✝',
+    libTitle: 'The Holy Orthodox Library', aboutTitle: 'About This Model',
+    footerText: 'All rights reserved • Light of Orthodox Faith • To God alone be the glory',
+    aiLabel: '✝ Light of Faith', userLabel: 'You',
+    systemPrompt: `You are an AI model specialized in answering questions about sound Orthodox Christian Faith.
+You follow the teachings of the Orthodox Church (Coptic, Eastern Orthodox, Oriental Orthodox) and base your answers on:
+- The Holy Bible (Old & New Testaments)
+- Writings of the Early Church Fathers (Apostolic, Greek, Latin, and Coptic Fathers)
+- The Seven Ecumenical Councils
+- Holy Orthodox Tradition
+
+Guidelines:
+1. Answer in a detailed, methodical manner, citing scriptural and patristic evidence
+2. Respond to objections with scholarly respect and Christian love
+3. Quote supporting scripture references accurately
+4. Cite Holy Fathers when appropriate
+5. Maintain a reverent, dignified spiritual tone
+6. When uncertain, acknowledge it and direct to reliable sources
+7. Avoid polemical criticism of other Christian communities
+
+Always respond in clear, formal English unless the user specifies otherwise.`
+  }
+};
+
+function setLang(lang) {
+  currentLang = lang;
+  const isEn = lang === 'en';
+  document.body.classList.toggle('lang-en', isEn);
+  document.documentElement.lang = lang;
+  document.documentElement.dir = isEn ? 'ltr' : 'rtl';
+  document.getElementById('btn-ar').classList.toggle('active', !isEn);
+  document.getElementById('btn-en').classList.toggle('active', isEn);
+
+  const t = translations[lang];
+  document.getElementById('subtitle-text').textContent = t.subtitle;
+  document.getElementById('nav-chat').textContent = t.navChat;
+  document.getElementById('nav-library').textContent = t.navLibrary;
+  document.getElementById('nav-about').textContent = t.navAbout;
+  document.getElementById('chat-title').textContent = t.chatTitle;
+  document.getElementById('suggestions-title').textContent = t.suggTitle;
+  document.getElementById('chatInput').placeholder = t.placeholder;
+  document.getElementById('sendBtn').textContent = t.sendBtn;
+  document.getElementById('library-title').textContent = t.libTitle;
+  document.getElementById('about-title').textContent = t.aboutTitle;
+  document.getElementById('footer-text').textContent = t.footerText;
+
+  // Update suggestions
+  const chips = document.querySelectorAll('.suggestion-chip');
+  const arSugg = [
+    'ما هي أسرار الكنيسة السبعة؟',
+    'كيف نرد على شبهة التثليث؟',
+    'ما الفرق بين الطبيعة الإلهية والبشرية في المسيح؟',
+    'ما معنى التجسّد في اللاهوت الأرثوذكسي؟',
+    'شرح عقيدة الخلاص في الفكر الأرثوذكسي',
+    'كيف نفهم العذراء مريم في الأرثوذكسية؟',
+    'ما موقف الكنيسة من سفر الرؤيا؟'
+  ];
+  const enSugg = [
+    'What are the Seven Sacraments of the Church?',
+    'How do we respond to objections about the Trinity?',
+    'What is the difference between Christ\'s divine and human natures?',
+    'Explain the Incarnation in Orthodox theology',
+    'Orthodox understanding of salvation',
+    'What is the Orthodox view of the Virgin Mary?',
+    'What is the Church\'s position on the Book of Revelation?'
+  ];
+  chips.forEach((c, i) => {
+    c.textContent = isEn ? enSugg[i] : arSugg[i];
+  });
+
+  // welcome message
+  const wm = document.getElementById('welcome-msg');
+  if (wm) {
+    wm.textContent = isEn
+      ? `Peace be with you, beloved believer 🙏\n\nI am here to help you with any question related to sound Orthodox Christian Faith, including:\n\n• Doctrinal and theological questions\n• Responding to objections and doubts\n• Scripture interpretation\n• Church Fathers and their teachings\n• Sacraments and liturgical life\n\nFeel free to ask. ✝`
+      : `السلام لك أيها المؤمن 🙏\n\nأنا هنا لمساعدتك في الإجابة عن أي سؤال يتعلق بالإيمان الأرثوذكسي السليم، سواء كان:\n\n• أسئلة عقدية أو لاهوتية\n• شبهات يثيرها غير المؤمنين\n• تفسير نصوص الكتاب المقدس\n• آباء الكنيسة وتعاليمهم\n• الطقوس والأسرار المقدسة\n\nتفضّل، اسألني بحرية. ✝`;
+  }
+}
+
+/* -----  NAV  ----- */
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  document.getElementById('nav-' + id).classList.add('active');
+}
+
+/* -----  CHAT  ----- */
+const conversationHistory = [];
+
+function useSuggestion(el) {
+  document.getElementById('chatInput').value = el.textContent;
+  showSection('chat');
+  document.getElementById('nav-chat').classList.add('active');
+  sendMessage();
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 140) + 'px';
+}
+
+function appendMessage(role, text, isTyping = false) {
+  const t = translations[currentLang];
+  const container = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = 'message ' + (role === 'user' ? 'user' : 'ai');
+
+  const label = document.createElement('span');
+  label.className = 'msg-label';
+  label.textContent = role === 'user' ? t.userLabel : t.aiLabel;
+
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble';
+
+  if (isTyping) {
+    bubble.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+    div.id = 'typing-indicator';
+  } else {
+    bubble.textContent = text;
+  }
+
+  div.appendChild(label);
+  div.appendChild(bubble);
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+  return bubble;
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const sendBtn = document.getElementById('sendBtn');
+  const text = input.value.trim();
+  if (!text) return;
+
+  const t = translations[currentLang];
+
+  // Append user message
+  appendMessage('user', text);
+  conversationHistory.push({ role: 'user', content: text });
+
+  input.value = '';
+  input.style.height = 'auto';
+  sendBtn.disabled = true;
+
+  // Typing indicator
+  appendMessage('ai', '', true);
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: t.systemPrompt,
+        messages: conversationHistory
+      })
+    });
+
+    const data = await response.json();
+    const reply = data.content && data.content[0] ? data.content[0].text : (currentLang === 'ar' ? 'حدث خطأ، يرجى المحاولة مرة أخرى.' : 'An error occurred. Please try again.');
+
+    // Remove typing indicator
+    const indicator = document.getElementById('typing-indicator');
+    if (indicator) indicator.remove();
+
+    appendMessage('ai', reply);
+    conversationHistory.push({ role: 'assistant', content: reply });
+
+  } catch (err) {
+    const indicator = document.getElementById('typing-indicator');
+    if (indicator) indicator.remove();
+    appendMessage('ai', currentLang === 'ar' ? 'حدث خطأ في الاتصال. تأكد من مفتاح API وحاول مجدداً.' : 'Connection error. Check your API key and try again.');
+    console.error(err);
+  }
+
+  sendBtn.disabled = false;
+  input.focus();
+}
+</script>
+</body>
+</html>
